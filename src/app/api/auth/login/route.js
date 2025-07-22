@@ -1,5 +1,6 @@
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
+import bcrypt from 'bcrypt';
 
 export async function POST(request) {
   try {
@@ -16,8 +17,17 @@ export async function POST(request) {
       }, { status: 404 });
     }
 
-    // For demo purposes, accept any password
-    // In production, you would verify the hashed password
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    
+    if (!isPasswordValid) {
+      return Response.json({ 
+        success: false, 
+        message: 'Invalid password' 
+      }, { status: 401 });
+    }
+
+    // Login successful
     return Response.json({
       success: true,
       message: 'Login successful',

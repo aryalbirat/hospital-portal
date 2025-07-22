@@ -1,5 +1,6 @@
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
+import bcrypt from 'bcrypt';
 
 // GET - Fetch all users
 export async function GET() {
@@ -20,6 +21,16 @@ export async function POST(request) {
   try {
     await connectDB();
     const userData = await request.json();
+    
+    // Hash password if provided, otherwise use default password
+    if (userData.password) {
+      const saltRounds = 12;
+      userData.password = await bcrypt.hash(userData.password, saltRounds);
+    } else {
+      // Default password for demo purposes
+      const saltRounds = 12;
+      userData.password = await bcrypt.hash('password123', saltRounds);
+    }
     
     const newUser = new User(userData);
     await newUser.save();

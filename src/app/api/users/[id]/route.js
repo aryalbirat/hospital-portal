@@ -1,5 +1,6 @@
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
+import bcrypt from 'bcrypt';
 
 // GET single user
 export async function GET(request, { params }) {
@@ -31,6 +32,15 @@ export async function PUT(request, { params }) {
     await connectDB();
     const { id } = params;
     const userData = await request.json();
+    
+    // Hash password if provided
+    if (userData.password && userData.password.trim() !== '') {
+      const saltRounds = 12;
+      userData.password = await bcrypt.hash(userData.password, saltRounds);
+    } else {
+      // Remove password field if empty (don't update password)
+      delete userData.password;
+    }
     
     const updatedUser = await User.findByIdAndUpdate(id, userData, { 
       new: true,
