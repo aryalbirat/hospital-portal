@@ -36,30 +36,33 @@ const UserSchema = new mongoose.Schema({
   
   // Address Information
   address: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zipCode: { type: String, required: true },
-    country: { type: String, required: true, default: 'Nepal' }
+    type: String,
+    required: true,
+    default: ''
   },
   
   // Medical Information
   emergencyContact: {
     name: { type: String, required: true },
     phone: { type: String, required: true },
-    relationship: { type: String, required: true, default: 'Family' }  
+    relationship: { type: String, required: true, default: 'Family' }
   },
   
   // System Information
   role: {
     type: String,
-    enum: ['patient', 'doctor', 'admin'],
-    default: 'patient'
+    enum: ['User', 'Doctor', 'Admin'],
+    default: 'User'
   },
   assignedDoctor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Doctor',
-    required: false
+    type: String,  
+    required: false,
+    default: ''
+  },
+  appointmentTime: {
+    type: String,
+    required: false,
+    default: ''
   },
   medicalHistory: [{
     condition: String,
