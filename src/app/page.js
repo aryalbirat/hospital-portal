@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/components/Toast";
 import Navbar from "@/components/Navbar";
+import { motion } from "framer-motion"; // <-- Add this import
 
 export default function Home() {
   const { toast } = useToast();
@@ -70,21 +71,40 @@ export default function Home() {
           </div>
         </div>
       </nav>{" "}
-      */
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50 pt-24 pb-20 overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-blue-600">
+            <motion.div
+              className="text-center lg:text-left"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.h1
+                className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-blue-600"
+                initial={{ opacity: 0, x: -60 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              >
                 Welcome to Carelink Hospital
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              </motion.h1>
+              <motion.p
+                className="text-xl text-gray-600 mb-8 leading-relaxed"
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl
                 aliquam enim, eget facilisis quam felis id mauris.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
+              >
                 <Link
                   href="/signup"
                   className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
@@ -97,9 +117,14 @@ export default function Home() {
                 >
                   Staff Login
                 </Link>
-              </div>
-            </div>
-            <div className="relative">
+              </motion.div>
+            </motion.div>
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+            >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=800"
@@ -111,9 +136,19 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-100 rounded-full opacity-60"></div>
-              <div className="absolute -top-6 -left-6 w-16 h-16 bg-blue-200 rounded-full opacity-40"></div>
-            </div>
+              <motion.div
+                className="absolute -bottom-6 -right-6 w-24 h-24 bg-blue-100 rounded-full opacity-60"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 0.6 }}
+                transition={{ duration: 0.7, delay: 0.7 }}
+              />
+              <motion.div
+                className="absolute -top-6 -left-6 w-16 h-16 bg-blue-200 rounded-full opacity-40"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 0.4 }}
+                transition={{ duration: 0.7, delay: 0.8 }}
+              />
+            </motion.div>
           </div>
         </div>
       </section>

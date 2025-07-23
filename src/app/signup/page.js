@@ -501,7 +501,7 @@ export default function SignupPage() {
         {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-sm text-gray-500">
-            Secure healthcare portal • Protected by Carelink Hospital
+            Secure healthcare portal • Created by Birat Aryal
           </p>
         </div>
       </div>
