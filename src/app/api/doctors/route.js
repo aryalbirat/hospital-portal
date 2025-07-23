@@ -5,12 +5,11 @@ export async function GET() {
   try {
     await connectDB();
     
-    // Get all users with 'Doctor' role
+
     const doctors = await User.find({ role: 'Doctor' }).select(
       'firstName lastName email phone specialization experience department'
     );
     
-    // Format the doctors data for the frontend
     const formattedDoctors = doctors.map(doctor => ({
       id: doctor._id.toString(),
       name: `Dr. ${doctor.firstName} ${doctor.lastName}`,
