@@ -19,12 +19,12 @@ export default function Navbar() {
     }, 1000);
   };
 
-  // Don't show navbar on home, login, or signup pages
+  // Hide navbar on specific pages
   if (pathname === '/' || pathname === '/login' || pathname === '/signup') {
     return null;
   }
 
-  // Get page-specific styling and info
+ 
   const getPageInfo = () => {
     switch (pathname) {
       case '/admin':
