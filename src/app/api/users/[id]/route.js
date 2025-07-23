@@ -1,28 +1,21 @@
 import connectDB from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcrypt';
+import { NextResponse } from 'next/server';
 
 // GET single user
-export async function GET(request, { params }) {
+export async function GET(request, context) {
   try {
     await connectDB();
-    const { id } = params;
-    
+    const { id } = await context.params;
+
     const user = await User.findById(id);
-    
     if (!user) {
-      return Response.json({ 
-        success: false, 
-        error: 'User not found' 
-      }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
     }
-    
-    return Response.json({ success: true, user });
+    return NextResponse.json({ success: true, user });
   } catch (error) {
-    return Response.json({ 
-      success: false, 
-      error: 'Failed to fetch user' 
-    }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
 

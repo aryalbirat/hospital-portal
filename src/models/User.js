@@ -24,6 +24,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
+  },
   dateOfBirth: {
     type: Date,
     required: true
@@ -42,11 +47,6 @@ const UserSchema = new mongoose.Schema({
   },
   
   // Medical Information
-  emergencyContact: {
-    name: { type: String, required: true },
-    phone: { type: String, required: true },
-    relationship: { type: String, required: true, default: 'Family' }
-  },
   
   // System Information
   role: {
@@ -54,13 +54,26 @@ const UserSchema = new mongoose.Schema({
     enum: ['User', 'Doctor', 'Admin'],
     default: 'User'
   },
-  assignedDoctor: {
-    type: String,  
-    required: false,
+  
+  // Doctor-specific fields
+  specialization: {
+    type: String,
+    required: function() { return this.role === 'Doctor'; },
     default: ''
   },
-  appointmentTime: {
+  experience: {
     type: String,
+    required: function() { return this.role === 'Doctor'; },
+    default: ''
+  },
+  department: {
+    type: String,
+    required: function() { return this.role === 'Doctor'; },
+    default: ''
+  },
+  
+  assignedDoctor: {
+    type: String,  
     required: false,
     default: ''
   },
