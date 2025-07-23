@@ -171,3 +171,30 @@ This project demonstrates:
 - Responsive web design
 - Clean code practices
 - Professional UI/UX design
+
+## 🚀 Deployment
+
+This project is **deployed on Vercel**:  
+👉 [https://hospital-portal-seven.vercel.app/](https://hospital-portal-seven.vercel.app/)
+
+### Admin Login (Demo)
+- **Email:** admin@hospital.com
+- **Password:** 111111
+
+### Notes for Deployment
+- The app is fully cloud-based and uses **MongoDB Atlas** (not local MongoDB).
+- Environment variable `MONGODB_URI` is set in the Vercel dashboard.
+- No Docker or manual server setup required—just push to GitHub and connect to Vercel.
+
+---
+
+**To deploy your own version:**
+1. Fork or clone this repo.
+2. Push to your own GitHub.
+3. Import to [Vercel](https://vercel.com/import).
+4. Set your `MONGODB_URI` (Atlas connection string) in Vercel Project Settings.
+5. Deploy!
+
+---
+
+Enjoy using Carelink Hospital Portal!
