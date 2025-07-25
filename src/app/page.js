@@ -12,15 +12,14 @@ import {
   Stethoscope,
 } from "lucide-react";
 import { useToast } from "@/components/Toast";
-import Navbar from "@/components/Navbar";
-import { motion } from "framer-motion"; // <-- Add this import
+import { motion } from "framer-motion"; 
 
 export default function Home() {
   const { toast } = useToast();
 
   const handleServiceClick = (serviceName) => {
     toast.info(
-      `Learn more about our ${serviceName} services. Contact us at +1 (555) 123-4567 for details.`,
+      `Learn more about our ${serviceName} services. Contact us at +977 (986)-6296119 for details.`,
       {
         duration: 4000,
       }
@@ -70,7 +69,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </nav>{" "}
+      </nav>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50 pt-24 pb-20 overflow-hidden">
         <div className="container mx-auto px-6">

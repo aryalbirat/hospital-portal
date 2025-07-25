@@ -8,10 +8,12 @@ if (!MONGODB_URI) {
   );
 }
 
+//mongodb connection cache
+// This prevents connections from being created multiple times during hot reloads in development
 let cached = global.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null };//promise resolves to the mongoose connection
 }
 
 async function connectDB() {

@@ -46,7 +46,6 @@ const UserSchema = new mongoose.Schema({
     default: ''
   },
   
-  // Medical Information
   
   // System Information
   role: {

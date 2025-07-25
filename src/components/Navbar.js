@@ -10,7 +10,7 @@ export default function Navbar() {
   const { toast } = useToast();
   
   const handleLogout = () => {
-    // Simple logout - in real app you'd clear tokens/sessions
+    // Simple logout
     toast.success('Logged out successfully! Thank you for using Carelink Hospital Portal.', {
       duration: 3000
     });

@@ -1,20 +1,23 @@
-"use client";
+"use client"; // Ensures this component runs on the client side (Next.js specific)
+
 import React, { createContext, useContext, useState, useCallback } from 'react';
+// Importing icons for different toast types
 import { CheckCircle, XCircle, AlertCircle, Info, X } from 'lucide-react';
 
-// Toast Context
+// Create a context to share toast functionality across components
 const ToastContext = createContext();
 
-// Toast Hook
+// Custom hook to use toast functions anywhere in the app
 export const useToast = () => {
   const context = useContext(ToastContext);
+  // Ensures the hook is used inside a ToastProvider
   if (!context) {
     throw new Error('useToast must be used within a ToastProvider');
   }
   return context;
 };
 
-// Toast Types
+// Define the types of toasts supported
 const TOAST_TYPES = {
   SUCCESS: 'success',
   ERROR: 'error',
@@ -22,8 +25,9 @@ const TOAST_TYPES = {
   INFO: 'info'
 };
 
-// Toast Component
+// Component to display a single toast notification
 const ToastItem = ({ toast, onRemove }) => {
+  // Returns the appropriate icon based on toast type
   const getIcon = (type) => {
     switch (type) {
       case TOAST_TYPES.SUCCESS:
@@ -39,6 +43,7 @@ const ToastItem = ({ toast, onRemove }) => {
     }
   };
 
+  // Returns the background and border styles based on toast type
   const getStyles = (type) => {
     switch (type) {
       case TOAST_TYPES.SUCCESS:
@@ -54,6 +59,7 @@ const ToastItem = ({ toast, onRemove }) => {
     }
   };
 
+  // Returns the icon color based on toast type
   const getIconColor = (type) => {
     switch (type) {
       case TOAST_TYPES.SUCCESS:
@@ -69,18 +75,22 @@ const ToastItem = ({ toast, onRemove }) => {
     }
   };
 
+  // Render the toast UI
   return (
     <div className={`${getStyles(toast.type)} border rounded-lg p-4 mb-3 shadow-lg transform transition-all duration-300 ease-in-out max-w-md w-full`}>
       <div className="flex items-start">
+        {/* Icon */}
         <div className={`flex-shrink-0 ${getIconColor(toast.type)}`}>
           {getIcon(toast.type)}
         </div>
+        {/* Title and message */}
         <div className="ml-3 flex-1">
           {toast.title && (
             <h4 className="text-sm font-semibold mb-1">{toast.title}</h4>
           )}
           <p className="text-sm">{toast.message}</p>
         </div>
+        {/* Close button */}
         <button
           onClick={() => onRemove(toast.id)}
           className="flex-shrink-0 ml-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -92,10 +102,12 @@ const ToastItem = ({ toast, onRemove }) => {
   );
 };
 
-// Toast Container
+// Component to display all active toasts
 const ToastContainer = ({ toasts, onRemove }) => {
+  // If there are no toasts, render nothing
   if (toasts.length === 0) return null;
 
+  // Render each toast using ToastItem
   return (
     <div className="fixed top-4 right-4 z-50">
       {toasts.map((toast) => (
@@ -109,29 +121,35 @@ const ToastContainer = ({ toasts, onRemove }) => {
   );
 };
 
-// Toast Provider
+// Provider component that manages toast state and functions
 export const ToastProvider = ({ children }) => {
+  // State to hold all active toasts
   const [toasts, setToasts] = useState([]);
 
+  // Function to remove a toast by its id
   const removeToast = useCallback((id) => {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   }, []);
 
+  // Function to add a new toast
   const addToast = useCallback((toast) => {
+    // Generate a unique id for the toast
     const id = Math.random().toString(36).substring(2) + Date.now().toString(36);
     const newToast = { ...toast, id };
     
+    // Add the new toast to the state
     setToasts(prev => [...prev, newToast]);
 
-    // Auto remove after duration (default 5 seconds)
+    // Automatically remove the toast after a certain duration (default 5 seconds)
     const duration = toast.duration || 5000;
     setTimeout(() => {
       removeToast(id);
     }, duration);
 
-    return id;
+    return id; // Return the id in case you want to remove it manually
   }, [removeToast]);
-
+  
+  // Helper functions to show different types of toasts
   const toast = {
     success: (message, options = {}) => {
       return addToast({ 
@@ -167,12 +185,14 @@ export const ToastProvider = ({ children }) => {
     },
   };
 
+  // Provide toast functions and state to all children
   return (
     <ToastContext.Provider value={{ toast, removeToast }}>
       {children}
+      {/* Render the ToastContainer with current toasts */}
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </ToastContext.Provider>
   );
 };
 
-export default ToastProvider;
+export default ToastProvider; // Export the provider for use in the app

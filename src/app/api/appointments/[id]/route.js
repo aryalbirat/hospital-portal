@@ -1,7 +1,6 @@
 import connectDB from '@/lib/mongodb';
 import mongoose from 'mongoose';
 
-// Use the same schema as in the main appointments route
 const AppointmentSchema = new mongoose.Schema({
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -52,6 +51,7 @@ const AppointmentSchema = new mongoose.Schema({
 });
 
 const Appointment = mongoose.models.Appointment || mongoose.model('Appointment', AppointmentSchema);
+
 
 // GET single appointment
 export async function GET(request, { params }) {

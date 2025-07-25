@@ -5,7 +5,6 @@ import { useToast } from '@/components/Toast';
 import { Calendar, Users, Clock, RefreshCw, FileText, Plus, X, Heart, User } from 'lucide-react';
 
 export default function UserPage() {
-  const router = useRouter();
   const { toast } = useToast();
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [doctors, setDoctors] = useState([]);
