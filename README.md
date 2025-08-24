@@ -2,11 +2,11 @@
 
 A comprehensive hospital management system built with Next.js, featuring role-based authentication, user management, and a responsive design.
 
-## 🏥 Project Overview
+##  Project Overview
 
 This hospital portal provides a complete solution for managing hospital operations with different access levels for administrators, doctors, and patients.
 
-## ✨ Features Completed
+##  Features Completed
 
 ### 1. Landing Page
 - Modern, responsive design
